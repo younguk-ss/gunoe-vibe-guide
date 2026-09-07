@@ -6,37 +6,45 @@ export const H = ({ t, as: Tag = 'span', ...rest }) => (
   <Tag {...rest} dangerouslySetInnerHTML={{ __html: t }} />
 )
 
-export function PromptBox({ label, text }) {
-  const [done, setDone] = useState(false)
-
-  async function copy() {
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text)
+  } catch {
+    const ta = document.createElement('textarea')
+    ta.value = text
+    ta.style.position = 'fixed'
+    ta.style.opacity = '0'
+    document.body.appendChild(ta)
+    ta.select()
     try {
-      await navigator.clipboard.writeText(text)
+      document.execCommand('copy')
     } catch {
-      const ta = document.createElement('textarea')
-      ta.value = text
-      ta.style.position = 'fixed'
-      ta.style.opacity = '0'
-      document.body.appendChild(ta)
-      ta.select()
-      try {
-        document.execCommand('copy')
-      } catch {
-        /* 복사 불가 환경 — 본문을 직접 드래그하면 된다 */
-      }
-      document.body.removeChild(ta)
+      /* 복사 불가 환경 — 본문을 직접 드래그하면 된다 */
     }
+    document.body.removeChild(ta)
+  }
+}
+
+export function CopyButton({ text }) {
+  const [done, setDone] = useState(false)
+  async function onClick() {
+    await copyText(text)
     setDone(true)
     setTimeout(() => setDone(false), 1600)
   }
+  return (
+    <button className={done ? 'copy done' : 'copy'} onClick={onClick}>
+      {done ? '✓ 복사됨' : '복사'}
+    </button>
+  )
+}
 
+export function PromptBox({ label, text }) {
   return (
     <div className="prompt">
       <div className="prompt-bar">
         <span className="prompt-lbl">{label}</span>
-        <button className={done ? 'copy done' : 'copy'} onClick={copy}>
-          {done ? '✓ 복사됨' : '복사'}
-        </button>
+        <CopyButton text={text} />
       </div>
       <pre>{text}</pre>
     </div>
@@ -315,6 +323,62 @@ function Body({ s }) {
           )}
         </div>
       )
+
+    case 'keywords':
+      return (
+        <div className="slide-body">
+          <Head s={s} />
+          <div className="kw">
+            {s.items.map((it, i) => (
+              <div className="c" key={it.k}>
+                <div className="top">
+                  <span className="em">{it.emoji}</span>
+                  <span className="n">{i + 1}</span>
+                </div>
+                <div className="k">{it.k}</div>
+                <H t={it.one} as="div" className="one" />
+                <H t={it.ex} as="div" className="ex" />
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+
+    case 'annotated': {
+      const full = s.lines.map((l) => l.text).join('\n')
+      return (
+        <div className="slide-body">
+          <Head s={s} />
+          <div className="anno">
+            <div className="prompt-bar">
+              <span className="prompt-lbl">{s.label}</span>
+              <CopyButton text={full} />
+            </div>
+            <div className="body">
+              {s.lines.map((l, i) =>
+                l.text === '' ? (
+                  <div className="row blank" key={i} />
+                ) : (
+                  <div className="row" key={i}>
+                    <span className="t">{l.text}</span>
+                    <span className="tags">
+                      {(l.tags || []).map((t) => (
+                        <span className="tag" key={t}>
+                          {t}
+                        </span>
+                      ))}
+                    </span>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+          {s.foot && (
+            <H t={s.foot} as="p" className="lead" style={{ fontSize: 13.5, color: 'var(--ink-3)' }} />
+          )}
+        </div>
+      )
+    }
 
     case 'prompts':
       return (
