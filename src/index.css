@@ -250,6 +250,8 @@ button {
   flex-direction: column;
   animation: slidein 0.32s cubic-bezier(0.2, 0.7, 0.2, 1);
   position: relative;
+  /* .slide-bg가 여백 밖으로 새어 나가 가로 스크롤을 만들지 않게 가둔다 */
+  overflow: hidden;
 }
 
 @keyframes slidein {
@@ -269,6 +271,59 @@ button {
   flex-direction: column;
   justify-content: center;
   gap: 18px;
+  position: relative;
+}
+
+/* 슬라이드 배경 이미지 — 텍스트 가독성을 위해 흐리게 깔린다 */
+.slide-bg {
+  position: absolute;
+  inset: -28px -40px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  opacity: 0.16;
+  filter: saturate(1.1);
+  pointer-events: none;
+  z-index: 0;
+  /* 제목이 놓이는 상단은 비우고, 카드가 놓이는 가운데만 배경을 남긴다 */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 66%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 66%, transparent 100%);
+}
+
+.slide-bg ~ * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ───────── logo ───────── */
+.logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--mint-line);
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.logo.lg {
+  width: clamp(96px, 11vw, 132px);
+  height: clamp(96px, 11vw, 132px);
+  margin: 0 auto 4px;
+  border-width: 3px;
+  box-shadow: 0 12px 30px -14px rgba(31, 107, 69, 0.6);
+}
+
+.hook-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hook-row .hook-big {
+  margin: 0;
+  flex: 1;
 }
 
 .kicker {
@@ -1114,6 +1169,23 @@ td.big {
   gap: 14px;
 }
 
+.links.three-up {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.links.three-up .link {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(3px);
+}
+
+.links.three-up .link .lb {
+  font-size: 17px;
+}
+
 .link {
   display: flex;
   gap: 16px;
@@ -1619,9 +1691,21 @@ td.big {
   .three,
   .prompts,
   .links,
+  .links.three-up,
   .pace,
   .naming {
     grid-template-columns: 1fr;
+  }
+  .links.three-up .link {
+    flex-direction: row;
+    align-items: center;
+  }
+  .hook-row {
+    gap: 12px;
+  }
+  .logo {
+    width: 56px;
+    height: 56px;
   }
   .pipe {
     grid-template-columns: 1fr;

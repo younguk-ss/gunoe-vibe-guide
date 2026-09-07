@@ -106,6 +106,7 @@ function Body({ s }) {
     case 'title':
       return (
         <div className="slide-body title-slide">
+          {s.logo && <img className="logo lg" src={s.logo} alt="선영욱 로고" />}
           <div className="kicker">{s.kicker}</div>
           <h1 className="st">{s.title}</h1>
           <div className="sub">{s.subtitle}</div>
@@ -123,7 +124,10 @@ function Body({ s }) {
       return (
         <div className="slide-body">
           <Head s={s} />
-          <div className="hook-big">{s.big}</div>
+          <div className="hook-row">
+            {s.logo && <img className="logo" src={s.logo} alt="선영욱 로고" />}
+            <div className="hook-big">{s.big}</div>
+          </div>
           <div className="lines">
             {s.lines.map((l, i) => (
               <H key={i} t={l} as="div" />
@@ -135,8 +139,11 @@ function Body({ s }) {
     case 'links':
       return (
         <div className="slide-body">
+          {s.bg && (
+            <div className="slide-bg" style={{ backgroundImage: `url(${s.bg})` }} aria-hidden="true" />
+          )}
           <Head s={s} />
-          <div className="links">
+          <div className={s.links.length > 2 ? 'links three-up' : 'links'}>
             {s.links.map((l) => (
               <a className="link" key={l.url} href={l.url} target="_blank" rel="noreferrer">
                 <span className="em">{l.emoji}</span>
