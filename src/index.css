@@ -1970,3 +1970,58 @@ td.big {
     page-break-after: always;
   }
 }
+
+/* ───────── 인쇄(PDF) 전용 — ?print=1 ───────── */
+.printing {
+  background: var(--bg);
+}
+
+.printing .page {
+  width: 338.67mm; /* 13.333in — 16:9 슬라이드 */
+  height: 190.5mm; /*  7.5in  */
+  padding: 8mm;
+  display: flex;
+  box-sizing: border-box;
+  break-after: page;
+  page-break-after: always;
+  overflow: hidden;
+}
+
+.printing .page:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+
+.printing .slide {
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  box-shadow: none;
+  border-radius: 14px;
+  animation: none;
+  padding: 14mm 16mm;
+}
+
+/* 화면용 뷰포트 기준 크기는 인쇄에서 의미가 없다 */
+.printing .img {
+  max-height: 118mm;
+}
+
+@page {
+  size: 338.67mm 190.5mm;
+  margin: 0;
+}
+
+/* PDF 인쇄에서는 background-clip:text가 그라데이션을 글자로 자르지 못하고
+   덩어리로 칠해버린다. 인쇄에서는 단색 글자로 되돌린다. */
+.printing .title-slide h1.st {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: var(--green-deep);
+}
+
+.printing .logo {
+  box-shadow: none;
+}
