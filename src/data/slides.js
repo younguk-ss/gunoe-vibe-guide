@@ -555,6 +555,174 @@ anon key: (강사가 알려준 키)
     script: '<b>깃허브만 고쳤는데 사이트가 알아서 바뀌었죠?</b>\nVercel이 깃허브를 계속 지켜보고 있다가, 바뀌면 자동으로 다시 배포하기 때문입니다.',
   },
 
+  // ── STEP 6 심화: 내 Supabase 직접 만들기 (시간 남을 때) ──
+  {
+    section: 'step6',
+    type: 'stepIntro',
+    step: 6,
+    duration: '심화 · 15분',
+    title: '내 데이터베이스 직접 만들기',
+    goal: '지금까지는 선생님이 만든 DB를 빌려 썼습니다. 이번엔 내 Supabase를 만들어 내 랭킹보드를 갖습니다.',
+    highlight: true,
+    note: '시간이 남을 때 / 먼저 끝낸 학생 / 다음 차시용. 4단계(가입 → 표 만들기 → 문 열어주기 → 열쇠 연결)로 진행. 한 단계씩 확인하고 넘어갈 것.',
+  },
+  {
+    section: 'step6',
+    type: 'three',
+    kicker: '심화 · 전체 그림',
+    title: '4단계면 내 DB가 생깁니다',
+    cols: [
+      {
+        num: '1·2',
+        name: '표 만들기',
+        emoji: '📋',
+        desc: 'Supabase에 가입하고 <code>rankings</code> 표를 만든다',
+        detail: '이름(name)과 기록(time)을 담을 칸 2개',
+        tag: '약 7분',
+      },
+      {
+        num: '3',
+        name: '문 열어주기',
+        emoji: '🔓',
+        desc: '누구나 <b>읽기·쓰기</b>할 수 있게 정책을 켠다',
+        detail: '이걸 안 하면 저장도 조회도 전부 막힌다',
+        tag: '가장 많이 막히는 곳',
+      },
+      {
+        num: '4',
+        name: '열쇠 연결',
+        emoji: '🔑',
+        desc: '주소와 키를 복사해 내 게임 코드에 넣는다',
+        detail: 'AI에게 주소·키를 주고 코드를 고쳐 달라고 한다',
+        tag: '약 5분',
+      },
+    ],
+    note: '"표를 만들고, 문을 열고, 열쇠를 꽂는다" — 이 순서를 먼저 말해주면 학생이 길을 잃지 않는다.',
+  },
+  {
+    section: 'step6',
+    type: 'steps',
+    kicker: '심화 1단계',
+    title: 'Supabase 가입 + 프로젝트 만들기',
+    items: [
+      '<b>supabase.com</b> 접속 → <b>[Start your project]</b>',
+      '<b>[Continue with GitHub]</b> — 아까 만든 깃허브 계정 그대로 씁니다',
+      '<b>[New project]</b> 클릭',
+      'Name: <code>my-game</code> / Database Password: <b>[Generate a password]</b> 눌러 자동 생성',
+      'Region: <b>Northeast Asia (Seoul)</b> — 가까울수록 빠릅니다',
+      '<b>[Create new project]</b> → <b>1~2분 기다립니다</b>',
+    ],
+    callout: {
+      kind: 'note',
+      title: '기다리는 동안',
+      text: '프로젝트가 만들어지는 1~2분 동안 옆 친구 게임을 플레이해 보세요. 다 되면 화면이 저절로 바뀝니다.',
+    },
+    note: '비밀번호는 자동 생성으로 충분하다. 학생이 직접 만들다가 시간을 쓰지 않게 할 것. 이 비밀번호는 오늘 쓸 일이 없다.',
+  },
+  {
+    section: 'step6',
+    type: 'steps',
+    kicker: '심화 2단계',
+    title: 'rankings 표 만들기',
+    items: [
+      '왼쪽 메뉴 <b>Table Editor</b> (표 아이콘) 클릭',
+      '<b>[New table]</b> 클릭',
+      'Name: <b><code>rankings</code></b> — 소문자로 정확히',
+      '<b>Columns</b>에서 <b>[+ Add column]</b>을 두 번 눌러 칸 2개를 추가합니다',
+      '첫 칸 → Name: <code>name</code>, Type: <b>text</b>',
+      '둘째 칸 → Name: <code>time</code>, Type: <b>float8</b> (소수점 기록용)',
+      '아래 <b>[Save]</b>',
+    ],
+    callout: {
+      kind: 'warn',
+      title: 'Enable Row Level Security는 켠 채로 두세요',
+      text: '기본으로 체크되어 있습니다. <b>끄지 마세요.</b> 대신 다음 단계에서 "누구나 읽고 쓸 수 있게" 문을 열어줍니다.',
+    },
+    note: 'id와 created_at은 자동으로 생긴다. 학생이 지우지 않게 안내. float8을 쓰는 이유는 12.34초 같은 기록을 담기 위해서.',
+  },
+  {
+    section: 'step6',
+    type: 'steps',
+    kicker: '심화 3단계 · 가장 많이 막히는 곳',
+    title: '문 열어주기 (정책 2개)',
+    items: [
+      '왼쪽 메뉴 <b>Authentication</b> → <b>Policies</b>',
+      '<code>rankings</code> 옆 <b>[New Policy]</b> → <b>[Get started quickly]</b>',
+      '① <b>"Enable read access for all users"</b> 템플릿 선택 → <b>[Save policy]</b>',
+      '다시 <b>[New Policy]</b> → <b>[Get started quickly]</b>',
+      '② <b>"Enable insert access for all users"</b> 템플릿 선택 → <b>[Save policy]</b>',
+      '정책이 <b>2개</b> 보이면 완료',
+    ],
+    script:
+      '이게 왜 필요할까요?\n방금 만든 표는 <b>기본이 잠금 상태</b>입니다. 그냥 두면 저장도, 조회도 전부 막힙니다.\n\n그래서 <b>읽기</b>와 <b>쓰기</b> 두 개만 열어주는 겁니다.\n<b>수정·삭제는 열지 않습니다.</b> 그래야 친구가 내 기록을 지울 수 없으니까요.',
+    note: '여기서 안 되면 나중에 "저장이 안 돼요"로 돌아온다. 정책 2개가 보이는지 순회하며 눈으로 확인할 것. 화면 문구는 Supabase 업데이트로 조금씩 달라질 수 있으니 "읽기 허용 / 쓰기(insert) 허용" 두 개를 찾으라고 안내.',
+  },
+  {
+    section: 'step6',
+    type: 'steps',
+    kicker: '심화 4단계',
+    title: '주소와 열쇠 복사하기',
+    items: [
+      '왼쪽 아래 <b>Project Settings</b> (톱니바퀴) → <b>API</b>',
+      '<b>Project URL</b> 복사 → 메모장에 붙여넣기',
+      '<b>Project API keys</b>의 <b><code>anon</code> <code>public</code></b> 키 복사 → 메모장에 붙여넣기',
+      '다음 슬라이드 프롬프트의 괄호 자리에 이 두 개를 넣습니다',
+    ],
+    callout: {
+      kind: 'note',
+      title: 'anon 키는 공개해도 되는 키입니다',
+      text: '웹사이트 코드에 들어가 누구나 볼 수 있게 설계된 키입니다. 그래서 3단계의 <b>정책</b>이 진짜 보안 장치입니다. 다만 <code>service_role</code> 키는 <b>절대 쓰지 마세요.</b>',
+    },
+    note: 'service_role 키를 복사하는 학생이 꼭 나온다. anon / public 라벨을 확인하라고 강조.',
+  },
+  {
+    section: 'step6',
+    type: 'prompt',
+    kicker: '심화 5단계',
+    title: '내 DB를 게임에 연결하기',
+    label: '괄호 안에 내 주소와 키를 넣어 Canvas에 붙여넣으세요',
+    text: `내 Supabase에 클리어 기록을 저장하고 랭킹을 보여주게 만들어줘.
+
+Supabase URL: (내 Project URL)
+anon key: (내 anon public 키)
+테이블: rankings / 컬럼: name(텍스트), time(숫자)
+
+클리어하면 이름을 입력받아 기록과 함께 저장하고,
+가장 빠른 순서로 TOP 10을 보여줘.
+저장이 실패하면 화면에 이유를 표시해줘.`,
+    extra: [
+      '새 코드를 복사 → 메모장 → <b>index.html</b>로 저장 → 깃허브에서 교체 → 1분 뒤 자동 배포',
+      '"저장이 실패하면 이유를 표시해줘"를 넣는 이유: 안 될 때 원인을 스스로 찾을 수 있습니다',
+    ],
+    note: '마지막 줄이 핵심. 오류 메시지가 화면에 뜨면 학생이 그걸 복사해 AI에게 다시 물어볼 수 있다 — STEP 1에서 가르친 "에러도 복사해서 던지기"의 반복.',
+  },
+  {
+    section: 'step6',
+    type: 'savetable',
+    kicker: '심화 · 안 될 때',
+    title: '저장이 안 될 때 이 순서로',
+    rows: [
+      {
+        item: '아무 반응 없음',
+        value: '정책 2개',
+        fail: 'Authentication → Policies에서 읽기·쓰기 정책이 둘 다 있는지 (3단계)',
+      },
+      {
+        item: '표를 못 찾음',
+        value: 'rankings',
+        fail: '표 이름이 소문자 rankings가 맞는지, 컬럼이 name / time인지',
+      },
+      {
+        item: '키 오류',
+        value: 'anon public',
+        fail: 'service_role이 아니라 anon public 키를 넣었는지, 앞뒤가 잘리지 않았는지',
+      },
+    ],
+    success:
+      '그래도 안 되면 화면의 <b>오류 메시지를 그대로 복사해서 AI에게</b> 던지세요. 대부분 한 번에 고쳐줍니다.',
+    note: '순회하며 이 순서로 짚으면 대부분 3단계(정책)에서 걸린다.',
+  },
+
   // ───────────────────────── 마무리 ─────────────────────────
   {
     section: 'outro',

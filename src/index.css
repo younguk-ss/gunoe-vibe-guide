@@ -152,14 +152,32 @@ button {
   color: #fff;
 }
 
-/* timer */
+/* ───────── timer ───────── */
+.timer-wrap {
+  position: relative;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
 .timer {
   font-family: var(--mono);
   font-weight: 800;
   font-size: 14px;
   letter-spacing: 0.02em;
-  min-width: 84px;
+  min-width: 92px;
   justify-content: center;
+  gap: 5px;
+}
+
+.timer .ic {
+  font-family: initial;
+  font-size: 13px;
+}
+
+.tbtn.ghost {
+  padding: 0 9px;
+  color: var(--ink-3);
 }
 
 .timer.warn {
@@ -172,6 +190,163 @@ button {
   background: var(--red-soft);
   border-color: #fca5a5;
   color: var(--red);
+}
+
+.timer.done {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  animation: ring 0.9s ease-in-out infinite;
+}
+
+@keyframes ring {
+  0%,
+  100% {
+    transform: none;
+  }
+  25% {
+    transform: rotate(-4deg) scale(1.04);
+  }
+  75% {
+    transform: rotate(4deg) scale(1.04);
+  }
+}
+
+/* 타이머 설정 패널 */
+.tpick {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 60;
+  width: 268px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 22px 50px -18px rgba(20, 60, 40, 0.4);
+  padding: 16px;
+}
+
+.tpick .ttl {
+  font-weight: 900;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.tcols {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.tsel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 80px;
+  height: 40px;
+  background: var(--mint-soft);
+  border: 1.5px solid var(--mint-line);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.tcol {
+  /* .tsel(absolute)보다 위에 그려져야 선택된 숫자가 가려지지 않는다 */
+  position: relative;
+  z-index: 1;
+  height: 200px;
+  width: 88px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  text-align: center;
+  overscroll-behavior: contain;
+}
+
+.tcol::-webkit-scrollbar {
+  display: none;
+}
+
+.tcol .pad {
+  height: 80px;
+}
+
+.tcol .it {
+  height: 40px;
+  line-height: 40px;
+  scroll-snap-align: center;
+  font-family: var(--mono);
+  font-size: 17px;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: 0.12s;
+}
+
+.tcol .it small {
+  font-size: 11px;
+  margin-left: 2px;
+}
+
+.tcol .it.on {
+  color: var(--green-deep);
+  font-weight: 900;
+  font-size: 22px;
+}
+
+.tpre {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  margin: 12px 0 10px;
+}
+
+.tpre button {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 2px;
+  font-size: 10.5px;
+  color: var(--ink-3);
+  cursor: pointer;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.tpre button:hover {
+  border-color: var(--mint);
+  color: var(--green-deep);
+}
+
+.tpre button b {
+  display: block;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+.tgo {
+  width: 100%;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 11px;
+  padding: 11px;
+  font-weight: 900;
+  font-size: 15px;
+  font-family: var(--mono);
+  cursor: pointer;
+}
+
+.tgo:hover {
+  background: var(--green-deep);
+}
+
+.thint {
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--ink-3);
+  margin-top: 8px;
 }
 
 /* section nav */
