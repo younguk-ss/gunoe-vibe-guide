@@ -1,0 +1,558 @@
+/**
+ * 슬라이드 정의. 한 장 = 한 메시지.
+ * 콘텐츠 문자열의 <b>/<code>는 전부 이 파일에서 직접 작성한 값이다.
+ *
+ * section: 상단 내비게이션 묶음
+ * note:    강사만 보는 짧은 진행 메모 (하단 작은 글씨)
+ * script:  강사가 그대로 읽는 대사 (🎤 패널)
+ */
+
+export const FLOW = [
+  { step: 1, icon: '🎮', label: '게임 만들기', sub: 'Canvas' },
+  { step: 2, icon: '🎨', label: '배경 픽셀아트', sub: '사진 → bg.png' },
+  { step: 3, icon: '🔗', label: '연결 + 저장', sub: 'index.html' },
+  { step: 4, icon: '📦', label: '깃허브 push', sub: '파일 2개 업로드' },
+  { step: 5, icon: '🚀', label: 'Vercel 배포', sub: '진짜 주소' },
+  { step: 6, icon: '🏆', label: 'DB 랭킹', sub: 'Supabase' },
+]
+
+export const SECTIONS = [
+  { id: 'intro', label: '시작', color: 'green' },
+  { id: 'theory', label: '원리', color: 'green' },
+  { id: 'step1', label: 'STEP 1', step: 1 },
+  { id: 'step2', label: 'STEP 2', step: 2 },
+  { id: 'step3', label: 'STEP 3', step: 3 },
+  { id: 'step4', label: 'STEP 4', step: 4 },
+  { id: 'step5', label: 'STEP 5', step: 5 },
+  { id: 'step6', label: 'STEP 6', step: 6 },
+  { id: 'outro', label: '마무리' },
+]
+
+export const SLIDES = [
+  // ───────────────────────── 시작 ─────────────────────────
+  {
+    section: 'intro',
+    type: 'title',
+    kicker: '2026. 9. 7. · 100분 연강',
+    title: '군외중 바이브코딩',
+    subtitle: '우리 학교가 배경인 게임 만들기',
+    pills: ['중학생 20명', '제미나이 Canvas', '선영욱 · 장흥 관산중 사회/역사'],
+    note: '학생 입장하는 동안 띄워두기. 앱 주소 QR을 옆에 함께.',
+  },
+  {
+    section: 'intro',
+    type: 'hook',
+    kicker: '오프닝 · 4분',
+    title: '코딩 한 줄도 몰라도\n게임을 만들 수 있을까?',
+    big: '저는 사회·역사 선생님입니다.',
+    lines: [
+      '이제 코딩은 <b>문법</b>이 아니라 <b>기획력</b>의 시대입니다.',
+      '아이디어가 있는 사람이, 만드는 사람이 됩니다.',
+      '오늘 볼 게임도, 이 화면도, 전부 AI와 대화하며 만들었습니다.',
+    ],
+    note: '4분 절대 초과 금지. 중학생 집중력은 오프닝 5분에 결정된다.',
+  },
+  {
+    section: 'intro',
+    type: 'links',
+    kicker: '선배들 작품 · 6분',
+    title: '말하지 말고, 플레이하기',
+    links: [
+      { emoji: '🎮', label: '천관산 점프 게임', desc: '오늘 만들 것의 실물', url: 'https://jh-01.vercel.app/' },
+      { emoji: '🗺️', label: '물축제 미니게임 아케이드', desc: '픽셀 지도에서 게임으로', url: 'https://jh-water-map.vercel.app/' },
+    ],
+    script: '이거 만든 사람, 여러분과 같은 중학생입니다.\n오늘 여러분도 <b>우리 학교가 배경인 게임</b>을 만들고, 끝나기 전에 <b>진짜 주소</b>가 생깁니다.',
+    note: '학생 1명을 앞으로 불러 직접 플레이시키기. 동기부여의 8할.',
+  },
+  {
+    section: 'intro',
+    type: 'flow',
+    kicker: '오늘의 목표',
+    title: '게임 하나로 개발의 전 과정을 갑니다',
+    lead: '만들고 → 배경 넣고 → 올리고 → 배포하고 → 저장한다',
+    active: null,
+    note: '이 그림이 오늘 내내 반복된다. "지금 여기"를 계속 짚어줄 것.',
+  },
+  {
+    section: 'intro',
+    type: 'timeline',
+    kicker: '타임테이블',
+    title: '100분, 여유는 0분',
+    rows: [
+      { t: 4, label: '오프닝', sub: '강사 소개' },
+      { t: 6, label: '사례', sub: '직접 플레이' },
+      { t: 8, label: '원리', sub: '구조 그림' },
+      { t: 22, label: 'STEP 1', sub: '게임 만들기', step: 1 },
+      { t: 8, label: 'STEP 2', sub: '배경', step: 2 },
+      { t: 5, label: 'STEP 3', sub: '연결·저장', step: 3 },
+      { t: 17, label: 'STEP 4', sub: '깃허브', step: 4 },
+      { t: 10, label: 'STEP 5', sub: '배포', step: 5 },
+      { t: 10, label: 'STEP 6', sub: 'DB 랭킹', step: 6 },
+      { t: 10, label: '클로징', sub: '랭킹전' },
+    ],
+    pace: [
+      { at: '40분', rule: 'STEP 2 미시작 → 배경은 강사 시연 1회로 축소' },
+      { at: '60분', rule: 'STEP 4 미시작 → 즉시 Plan B (대표작 2개 배포)' },
+    ],
+    note: '상단 타이머를 오프닝 시작과 함께 켤 것. 40·60분에 색이 바뀐다.',
+  },
+
+  // ───────────────────────── 원리 ─────────────────────────
+  {
+    section: 'theory',
+    type: 'image',
+    kicker: '원리 · 8분',
+    title: '웹 서비스는 어떻게 작동할까?',
+    src: '/web-structure.jpg',
+    alt: '프론트엔드-백엔드-DB 구조와 GitHub-Vercel 배포 흐름',
+    note: '비유 없이 그림 그대로. "오늘 이 그림의 왼쪽(프론트엔드)을 만들고, 아래줄(깃허브→Vercel)로 공개하고, 오른쪽(DB)에 저장합니다."',
+  },
+  {
+    section: 'theory',
+    type: 'three',
+    kicker: '원리 · 화면은 어디서 그려지나',
+    title: '세 곳에서 나눠 일합니다',
+    cols: [
+      { num: '01', name: '프론트엔드', emoji: '🖥️', desc: '브라우저에서 실행되는 화면과 동작', detail: 'HTML 내용·구조 / CSS 모양·배치 / JavaScript 동작', tag: '오늘 Canvas에서 만드는 것' },
+      { num: '02', name: '백엔드', emoji: '🗄️', desc: '서버에서 실행되는 코드. 요청을 처리하고 결과를 돌려준다', detail: '예: 점수 확인 · 순위 조회', tag: '오늘은 Supabase가 대신' },
+      { num: '03', name: 'DB · 데이터베이스', emoji: '💾', desc: '데이터를 저장·조회·수정하는 시스템', detail: '예: 이름과 점수 저장', tag: '오늘의 랭킹보드' },
+    ],
+    arrows: ['① 점수 전송', '② 저장·조회', '③ 데이터 반환', '④ 순위 응답'],
+    note: '그림의 화살표 ①~④를 손으로 따라가며 읽기. "내 폰에만 저장하면 나만 보이고, DB에 저장하면 모두가 본다."',
+  },
+  {
+    section: 'theory',
+    type: 'pipeline',
+    kicker: '원리 · 코드를 세상에 공개하기',
+    title: '깃허브에 올리면, Vercel이 주소를 만듭니다',
+    nodes: [
+      { emoji: '📦', name: 'GitHub', desc: '코드와 변경 기록 보관' },
+      { emoji: '🚀', name: 'Vercel', desc: '연결 후 자동 배포' },
+      { emoji: '🌐', name: 'URL 접속', desc: '누구나 주소로 접속' },
+    ],
+    lines: [
+      '깃허브는 <b>파일을 올려(push) 보관</b>하고, 바꿀 때마다 <b>기록</b>이 남는 저장소입니다.',
+      'Vercel은 깃허브를 <b>지켜보다가</b>, 바뀌면 <b>알아서 다시 배포</b>합니다.',
+    ],
+    note: '"오늘 여러분이 파일 2개를 깃허브에 올리면, 1분 뒤 주소가 생깁니다."',
+  },
+  {
+    section: 'theory',
+    type: 'pipeline',
+    kicker: '원리 · 바이브코딩',
+    title: '내가 말하면, AI가 코드를 씁니다',
+    nodes: [
+      { emoji: '💬', name: '내 말', desc: '한국어 프롬프트' },
+      { emoji: '🤖', name: 'AI', desc: 'HTML / CSS / JS 작성' },
+      { emoji: '🖥️', name: '브라우저', desc: '코드를 읽어 화면으로' },
+    ],
+    lines: [
+      'AI는 수많은 코드를 학습했기 때문에, <b>원하는 것을 말로 쓰면 코드로 바꿔</b> 줍니다.',
+      '그래서 오늘 여러분이 할 일은 <b>정확하게 말하는 것</b>, 그리고 <b>결과를 보고 다시 말하는 것</b>입니다.',
+    ],
+    note: '"AI가 다 해주는 게 아닙니다. 파일 저장, 깃허브 업로드, 배포 버튼은 여러분이 직접 누릅니다."',
+  },
+  {
+    section: 'theory',
+    type: 'quiz',
+    kicker: '확인 질문',
+    title: '오늘 Canvas에서 만드는 코드는\n어디서 실행될까요?',
+    options: ['프론트엔드 (브라우저)', '백엔드 (서버)', 'DB'],
+    answer: 0,
+    follow: '클리어 기록은 어디에 저장해야 <b>친구도</b> 볼 수 있을까요? → <b>DB</b>',
+    note: '손들기로 빠르게. 정답 공개 후 바로 STEP 1로.',
+  },
+
+  // ───────────────────────── STEP 1 ─────────────────────────
+  {
+    section: 'step1',
+    type: 'stepIntro',
+    step: 1,
+    duration: '22분',
+    title: '게임 만들기',
+    goal: '제미나이 Canvas로 2D 점프 게임의 뼈대를 완성합니다.',
+    note: '강사가 앞에서 1회 시연 → 학생 따라 하기 → 먼저 끝낸 학생은 미니 조교.',
+  },
+  {
+    section: 'step1',
+    type: 'cards',
+    kicker: 'STEP 1-1 · 30초',
+    title: '스테이지 테마 고르기',
+    cards: [
+      { emoji: '🏫', name: '군외중 탈출', desc: '밤의 학교를 빠져나가기', foot: '배경: 군외중 건물 · 운동장' },
+      { emoji: '🌊', name: '완도 바다', desc: '명사십리 · 바닷속 탐험', foot: '배경: 완도 바다 · 해변' },
+      { emoji: '🏯', name: '청해진 유적', desc: '장보고의 청해진에서 탈출', foot: '배경: 청해진 유적 · 완도타워' },
+    ],
+    note: '고민 길어지면 안 된다. "30초 안에 손들기". 청해진 고른 학생에게 "장보고가 실제로 여기 있었다" 한 줄.',
+  },
+  {
+    section: 'step1',
+    type: 'steps',
+    kicker: 'STEP 1-2',
+    title: '제미나이 켜고 준비하기',
+    items: [
+      '아이모두 제미나이 접속 → 로그인',
+      '모델 선택: <b>3.8 Flash</b> (없으면 가장 최신 Flash)',
+      '사고 수준 옵션이 있으면 <b>high</b>',
+      '입력창 아래 <b>[Canvas]</b> 버튼 켜기',
+    ],
+    callout: { kind: 'warn', title: 'Canvas 버튼을 안 켜면 앱이 안 만들어집니다', text: '출발 전에 <b>전원</b> Canvas 켜짐 확인.' },
+    note: '왜 Flash인가: 코딩 점수 76.3으로 Pro보다 높고, 반복 수정에 빠르다. 근거는 강사용 탭.',
+  },
+  {
+    section: 'step1',
+    type: 'prompt',
+    kicker: 'STEP 1-3',
+    title: '시작 프롬프트 — 그대로 붙여넣기',
+    label: '복사해서 Canvas에 붙여넣으세요',
+    text: `너는 실력 있는 웹 게임 개발자야.
+HTML 파일 하나로 완성되는 2D 점프 게임을 만들어줘.
+
+[조작] 좌우 방향키로 이동, 스페이스바로 점프 (공중에서 한 번 더 점프 가능)
+[목표] 왼쪽에서 시작해 오른쪽 끝의 출구에 닿으면 "STAGE CLEAR"
+[구성] 높이가 다른 발판 5~6개, 아래로 떨어지면 시작 지점에서 다시 시작
+[분위기] 어둡고 푸른 톤, 캐릭터와 지형은 검은 실루엣, 은은하게 빛나는 느낌
+[배경] 하늘 / 먼 산 / 앞쪽 지형 3겹이 서로 다른 속도로 움직이는 패럴랙스 효과
+[조건] HTML 파일 하나로, <canvas>로 그리고,
+      스마트폰에서도 되도록 화면 아래에 터치 버튼(←, →, 점프)도 넣어줘`,
+    note: '프롬프트의 4요소(역할·기능·분위기·조건)를 짚어주기. 1~2분 기다리는 동안 다음 슬라이드 예고.',
+  },
+  {
+    section: 'step1',
+    type: 'prompts',
+    kicker: 'STEP 1-4 · 한 번에 하나씩',
+    title: '다듬기 프롬프트',
+    lead: '결과를 확인하고 다음으로. <b>여러 개를 한꺼번에 넣으면 AI가 헷갈립니다.</b>',
+    prompts: [
+      { label: '① 수집품과 장애물', text: '빛나는 수집품 5개를 배치하고, 다 모아야 출구가 열리게 해줘.\n안 모으고 출구에 닿으면 "아직 ○개 남았어"가 뜨게 해줘.\n바닥 두 곳에 가시를 놓고 닿으면 처음부터 다시 시작하게 해줘.' },
+      { label: '② 클리어 기록', text: '시작부터 클리어까지 걸린 시간을 화면 위에 초 단위로 표시하고,\n클리어하면 "STAGE CLEAR"와 기록이 크게 뜨게 해줘.' },
+      { label: '③ 효과음 ⭐', text: '점프할 때와 수집품 먹을 때 짧은 효과음을\nWeb Audio API로 코드에서 직접 만들어서 재생해줘. (음악 파일 없이)' },
+      { label: '④ 난이도', text: '점프력을 조금 키워줘' },
+    ],
+    note: '③이 중요: Canvas는 외부 음악 파일을 못 쓴다. 코드로 소리를 만드는 게 유일한 방법.',
+  },
+  {
+    section: 'step1',
+    type: 'script',
+    kicker: 'STEP 1 · 막혔을 때',
+    title: '에러도 복사해서 던지세요',
+    script: '<b>에러 메시지를 그대로 복사해서 AI에게 던지세요.</b>\n"이거 고쳐줘"도 훌륭한 코딩입니다.\n\n<b>증상을 그대로 말하세요.</b>\n예: <code>캐릭터가 발판을 뚫고 지나가. 고쳐줘</code>',
+    bullets: ['3회 이상 실패 → 강사 백업 코드 투입', '잘된 화면은 즉시 전체 스크린에 미러링 — "○○님 것 보세요"'],
+    note: '순회 중 반복해서 쓸 멘트. 중간 성취 공유가 후반 동력이 된다.',
+  },
+
+  // ───────────────────────── STEP 2 ─────────────────────────
+  {
+    section: 'step2',
+    type: 'stepIntro',
+    step: 2,
+    duration: '8분',
+    title: '배경 사진을 픽셀아트로',
+    goal: '우리 지역·학교 사진을 게임 배경용 픽셀아트로 바꾸고, bg.png로 저장합니다.',
+  },
+  {
+    section: 'step2',
+    type: 'steps',
+    kicker: 'STEP 2-1',
+    title: '새 대화창에서, 사진 고르기',
+    items: [
+      '제미나이에서 <b>새 대화창</b>을 엽니다 — 게임 만들던 <b>Canvas 대화는 닫지 마세요</b>',
+      '강사가 준 <b>사진 폴더 QR</b>을 찍습니다',
+      '군외중 / 완도 사진 중 <b>1장</b>을 골라 내 컴퓨터에 다운로드',
+    ],
+    callout: { kind: 'warn', title: '이 작업은 Canvas가 아니라 "일반 대화"에서', text: '이미지 생성은 일반 대화에서 됩니다. Canvas 대화에 다시 돌아올 거니 그대로 두세요.' },
+    note: '사진 검색시키면 시간이 폭발한다. 반드시 폴더 QR로.',
+  },
+  {
+    section: 'step2',
+    type: 'prompt',
+    kicker: 'STEP 2-2',
+    title: '픽셀아트로 바꾸기',
+    label: '사진을 첨부한 뒤 붙여넣으세요',
+    text: `이 사진을 게임 배경으로 쓸 픽셀아트로 바꿔줘.
+어둡고 신비로운 분위기로, 남색과 보라색 위주에 은은하게 빛나는 느낌으로.
+가로로 긴 형태(16:9), 앞쪽은 어두운 실루엣, 뒤쪽은 흐릿하게.`,
+    note: '강사가 미리 만든 전/후 예시 1장 보여주기. "사진 한 장이 형용사 백 개보다 낫다."',
+  },
+  {
+    section: 'step2',
+    type: 'naming',
+    kicker: 'STEP 2-3 · 가장 중요한 30초',
+    title: '저장 — 파일 이름은 정확히 bg.png',
+    steps: ['이미지에 <b>마우스 우클릭</b> → [이미지를 다른 이름으로 저장]', '저장 위치: <b>바탕화면</b>', '파일 이름: <b>bg.png</b>'],
+    bad: ['배경.png  (한글)', 'BG.PNG  (대문자)', 'bg 1.png  (띄어쓰기)'],
+    good: 'bg.png',
+    note: '이 파일명이 STEP 3 코드와 STEP 4 업로드에서 그대로 쓰인다. 여기서 틀리면 배경이 영원히 안 뜬다.',
+  },
+  {
+    section: 'step2',
+    type: 'design3',
+    kicker: '디자인 원칙',
+    title: '예쁜 앱을 만드는 3단계',
+    rows: [
+      { level: '1단계', name: '기본', method: '말로 설명 — "어둡고 예쁘게"', result: 'AI가 알아서 만든 무난한 디자인' },
+      { level: '2단계', name: '고수', method: '닮고 싶은 디자인의 <b>사진을 첨부</b>', result: '말로 백 번보다 사진 한 장' },
+      { level: '3단계', name: '장인', method: '<b>이미지를 직접 만들어 앱 폴더에 파일로</b>', result: '세상에 하나뿐인 내 디자인', now: true },
+    ],
+    note: '"오늘은 3단계까지 갑니다. 그래서 깃허브가 필요합니다." — 다음 STEP 예고.',
+  },
+
+  // ───────────────────────── STEP 3 ─────────────────────────
+  {
+    section: 'step3',
+    type: 'stepIntro',
+    step: 3,
+    duration: '5분',
+    title: '배경 연결 + 파일 저장',
+    goal: '배경을 코드에 연결하고, 왜 지금은 안 보이는지 이해합니다. 그리고 코드를 index.html로 저장합니다.',
+    highlight: true,
+  },
+  {
+    section: 'step3',
+    type: 'prompt',
+    kicker: 'STEP 3-1 · Canvas 대화로 돌아가서',
+    title: '배경 이미지 연결하기',
+    label: '게임 만들던 Canvas 대화에 붙여넣으세요',
+    text: `bg.png 라는 배경 이미지 파일을 index.html과 같은 폴더에 넣을 거야.
+게임 배경으로 이 이미지를 불러와서 쓰도록 코드를 수정해줘.
+화면 크기에 맞게 늘어나고, 패럴랙스로 천천히 움직이게 해줘.`,
+    note: '결과가 나오면 학생들 표정을 보라. 배경이 안 보여서 당황한다. 그 순간 다음 슬라이드.',
+  },
+  {
+    section: 'step3',
+    type: 'script',
+    kicker: 'STEP 3-2 · 오늘의 핵심 장면',
+    title: '배경이 안 보입니다 — 정상입니다',
+    star: true,
+    script: '지금 배경 안 보이죠? <b>정상입니다. 여러분이 틀린 게 아닙니다.</b>\n\n왜 그럴까요? 코드는 지금 <code>bg.png</code>를 찾고 있어요.\n그런데 <b>여기(Canvas)에는 파일을 넣을 폴더 자체가 없습니다.</b>\n\n그럼 어떻게 해야 할까요?\n<b>파일을 넣을 수 있는 진짜 공간이 필요합니다. 그게 깃허브입니다.</b>\n\n지금부터 그걸 만들러 갑니다.\n그리고 배포하는 순간, 이 배경이 나타납니다.',
+    note: '이 대사가 깃허브·배포를 "해야 하는 일"에서 "하고 싶은 일"로 바꾼다. 천천히, 또박또박.',
+  },
+  {
+    section: 'step3',
+    type: 'steps',
+    kicker: 'STEP 3-3',
+    title: '코드를 파일로 저장하기',
+    items: [
+      'Canvas <b>우측 상단 코드 보기</b> → <b>복사 버튼</b> (전체 코드 복사)',
+      '<b>메모장</b> 열기 (윈도우 키 → "메모장")',
+      '<b>Ctrl + V</b> 붙여넣기',
+      '<b>[파일] → [다른 이름으로 저장]</b>',
+      '다음 슬라이드의 <b>3가지</b>를 확인하고 저장',
+      '저장 위치: <b>바탕화면</b> — bg.png와 같은 곳',
+    ],
+    note: '강사가 화면으로 1회 시연 후 따라 하게. 서두르지 말 것.',
+  },
+  {
+    section: 'step3',
+    type: 'savetable',
+    kicker: 'STEP 3-3 · 가장 사고가 많은 구간',
+    title: '저장할 때 반드시 확인할 3가지',
+    rows: [
+      { item: '파일 이름', value: 'index.html', fail: '다른 이름이면 배포해도 화면이 안 뜸' },
+      { item: '파일 형식', value: '모든 파일 (*.*)', fail: 'index.html.txt로 저장돼서 작동 안 함' },
+      { item: '인코딩', value: 'UTF-8', fail: '한글이 전부 깨짐' },
+    ],
+    success: '바탕화면에 <b>index.html</b>과 <b>bg.png</b> 두 파일이 있으면 성공',
+    note: '이 슬라이드를 띄운 채로 순회하며 전원 확인. 파일 2개 확인 전에는 STEP 4로 넘어가지 말 것.',
+  },
+
+  // ───────────────────────── STEP 4 ─────────────────────────
+  {
+    section: 'step4',
+    type: 'stepIntro',
+    step: 4,
+    duration: '17분',
+    title: '깃허브에 올리기 (push)',
+    goal: '깃허브 계정을 만들고, 저장소에 index.html과 bg.png를 올립니다.',
+    note: '사전 가입이 됐다면 4-1 건너뛰고 6분이면 끝. 먼저 끝낸 학생은 옆 친구 게임 플레이.',
+  },
+  {
+    section: 'step4',
+    type: 'steps',
+    kicker: 'STEP 4-1 · 가입 (이미 했으면 건너뛰기)',
+    title: '깃허브 가입하기',
+    items: [
+      '<b>github.com</b> → 우측 상단 <b>[Sign up]</b>',
+      '<b>이메일</b> 입력 → [Continue]',
+      '<b>비밀번호</b> (8자 이상, 숫자+소문자) → [Continue]',
+      '<b>사용자 이름</b> — 영문+숫자만. 예: <code>gunoe-hong01</code>',
+      '이메일 수신 여부 → <code>n</code> 입력 → [Continue]',
+      '퍼즐 통과 → <b>[Create account]</b>',
+      '<b>이메일로 온 8자리 코드</b> 입력',
+    ],
+    callout: { kind: 'note', title: '사용자 이름은 신중하게', text: '이 이름이 <b>내 사이트 주소</b>에 들어갑니다.' },
+    note: '여기서 막히는 학생이 반드시 나온다. 미니 조교 순회. 인증 메일 안 오면 짝 화면으로 함께.',
+  },
+  {
+    section: 'step4',
+    type: 'steps',
+    kicker: 'STEP 4-2',
+    title: '저장소(Repository) 만들기',
+    items: [
+      '우측 상단 <b>[+]</b> → <b>[New repository]</b>',
+      'Repository name: 영문으로. 예: <code>gunoe-game</code>',
+      '<b>[Public]</b> 선택',
+      '<b>[Create repository]</b>',
+    ],
+    callout: { kind: 'warn', title: '반드시 Public', text: 'Private이면 <b>무료 배포가 안 됩니다.</b> 이미 만들었다면 Settings 맨 아래 → Change visibility → Public.' },
+  },
+  {
+    section: 'step4',
+    type: 'steps',
+    kicker: 'STEP 4-3',
+    title: '파일 2개 올리기 = push',
+    items: [
+      '화면 중간의 <b>uploading an existing file</b> 클릭',
+      '바탕화면의 <b>index.html</b>과 <b>bg.png</b>를 <b>함께 드래그</b>',
+      '아래로 스크롤 → 초록색 <b>[Commit changes]</b>',
+    ],
+    script: '방금 여러분이 한 게 <b>push</b>입니다.\n코드가 저장소에 올라갔고, <b>이제부터 바꿀 때마다 기록이 남습니다.</b> 실수해도 예전 버전으로 되돌릴 수 있어요.',
+    success: '저장소 화면에 <b>index.html</b>과 <b>bg.png</b> 두 파일이 보이면 성공',
+  },
+
+  // ───────────────────────── STEP 5 ─────────────────────────
+  {
+    section: 'step5',
+    type: 'stepIntro',
+    step: 5,
+    duration: '10분',
+    title: 'Vercel로 배포하기',
+    goal: '진짜 인터넷 주소를 만들고, 드디어 배경이 나타나는 것을 확인합니다.',
+    highlight: true,
+  },
+  {
+    section: 'step5',
+    type: 'steps',
+    kicker: 'STEP 5-1',
+    title: 'Vercel 가입 — 깃허브로 바로',
+    items: [
+      '<b>vercel.com</b> → <b>[Sign Up]</b>',
+      '<b>[Continue with GitHub]</b> 선택',
+      '깃허브 로그인 → <b>[Authorize Vercel]</b>',
+      '용도를 물으면 <b>Personal(개인용)</b>',
+    ],
+    callout: { kind: 'warn', title: '이메일로 가입하지 마세요', text: '반드시 <b>Continue with GitHub</b>. 그래야 아까 만든 저장소를 바로 가져옵니다.' },
+  },
+  {
+    section: 'step5',
+    type: 'steps',
+    kicker: 'STEP 5-2',
+    title: 'Import → Deploy',
+    items: [
+      '<b>[Add New...]</b> → <b>[Project]</b>',
+      '내 저장소 <b>gunoe-game</b> 옆 <b>[Import]</b>',
+      '설정은 <b>아무것도 건드리지 말고</b> <b>[Deploy]</b>',
+      '30초~1분 대기',
+      '축하 화면 → <b>[Continue to Dashboard]</b> → 상단 <b>주소(URL)</b> 확인',
+    ],
+    note: '대기 시간에 "지금 Vercel이 깃허브에서 파일 2개를 가져가서 서버에 올리는 중"이라고 설명.',
+  },
+  {
+    section: 'step5',
+    type: 'script',
+    kicker: 'STEP 5-3 · 클라이맥스',
+    title: '배경이 나타나는 순간',
+    star: true,
+    script: '아까 Canvas에서는 왜 안 보였고, 지금은 왜 보일까요?\n\n<b>깃허브에 index.html과 bg.png를 같은 곳에 올렸기 때문입니다.</b>\n이제 코드가 <code>bg.png</code>를 찾으면, 바로 옆에 진짜로 있으니까 불러올 수 있는 겁니다.\n\n<b>여러분이 만든 그림이, 여러분이 만든 게임에 들어갔습니다.</b>',
+    bullets: ['내 주소를 QR로 만들어 폰으로 접속해보기', '친구에게 주소 공유하기'],
+    note: '박수 유도. 여기가 오늘의 정점.',
+  },
+  {
+    section: 'step5',
+    type: 'naming',
+    kicker: 'STEP 5 · 안 될 때',
+    title: '배경이 안 나온다면, 이 순서로',
+    steps: ['<code>bg.png</code>가 <b>소문자</b>인지', '두 파일이 <b>같은 위치</b>에 올라갔는지', '파일 이름에 <b>띄어쓰기</b>가 없는지', '화면이 아예 비었다면 → <code>index.html</code>이 맞는지 (<code>.txt</code>가 붙지 않았는지)'],
+    note: '대부분 파일명 문제. 깃허브 저장소 화면에서 파일명을 같이 확인.',
+  },
+
+  // ───────────────────────── STEP 6 ─────────────────────────
+  {
+    section: 'step6',
+    type: 'stepIntro',
+    step: 6,
+    duration: '10분',
+    title: 'DB 연결 — 반 전체 랭킹보드',
+    goal: '클리어 기록을 반 전체가 함께 쓰는 데이터베이스에 저장합니다. 원리 그림의 그 랭킹보드를 지금 만듭니다.',
+    note: '"아까 원리 그림 기억나죠? 그 랭킹보드를 지금 우리 게임에 붙입니다."',
+  },
+  {
+    section: 'step6',
+    type: 'three',
+    kicker: 'STEP 6 · 어떻게 되는 건가',
+    title: '반 전체가 하나의 DB를 씁니다',
+    cols: [
+      { num: '👤', name: '학생 20명', emoji: '🎮', desc: '각자 만든 게임에서 클리어', detail: '이름 + 기록 시간 전송' },
+      { num: '→', name: '하나의 DB', emoji: '💾', desc: '강사가 미리 만든 테이블 <code>rankings</code>', detail: '모든 기록이 한 곳에 모임' },
+      { num: '→', name: '같은 랭킹', emoji: '🏆', desc: '누구 게임에서 보든 순위가 같다', detail: '교실 스크린에 실시간 중계' },
+    ],
+    note: '학생 전원 Supabase 가입은 100분에 불가능. 강사 테이블 하나를 공유하는 게 더 빠르고 더 재밌다.',
+  },
+  {
+    section: 'step6',
+    type: 'prompt',
+    kicker: 'STEP 6-1 · Canvas 대화에서',
+    title: '랭킹 기능 추가하기',
+    label: 'URL과 키는 화면에 띄운 값을 보고 입력하세요',
+    text: `클리어하면 이름을 입력받아서, 클리어 시간과 함께 Supabase에 저장하고,
+전체 랭킹 TOP 10을 빠른 순서대로 보여주는 화면을 만들어줘.
+
+Supabase URL: (강사가 알려준 주소)
+anon key: (강사가 알려준 키)
+테이블 이름: rankings
+컬럼: name(텍스트), time(숫자)`,
+    note: 'URL·anon key는 대형 인쇄물 또는 칠판에. anon key는 원래 공개되는 값이라 공유해도 된다.',
+  },
+  {
+    section: 'step6',
+    type: 'steps',
+    kicker: 'STEP 6-2',
+    title: '새 코드를 다시 올리기',
+    items: [
+      '새 코드 <b>복사</b> → 메모장 → <b>index.html</b>로 저장 (3가지 확인!)',
+      '깃허브 저장소 → <b>index.html</b> 클릭 → <b>연필 아이콘(Edit)</b>',
+      '전체 지우고 새 코드 붙여넣기 → <b>[Commit changes]</b>',
+      'Vercel이 <b>자동으로 다시 배포</b> — 1분 대기',
+    ],
+    script: '<b>깃허브만 고쳤는데 사이트가 알아서 바뀌었죠?</b>\nVercel이 깃허브를 계속 지켜보고 있다가, 바뀌면 자동으로 다시 배포하기 때문입니다.',
+  },
+
+  // ───────────────────────── 마무리 ─────────────────────────
+  {
+    section: 'outro',
+    type: 'script',
+    kicker: '클로징 · 10분',
+    title: '전원 랭킹전',
+    star: true,
+    bullets: ['대표 게임 QR을 화면에 → 전원 폰으로 접속 → 다 같이 플레이', '교실 스크린에 랭킹보드 실시간 중계 (5분 확보)'],
+    script: '여러분 기록은 각자 폰이 아니라 <b>서버의 DB에 저장</b>됐고,\n모두의 폰이 <b>같은 DB를 읽기 때문에</b> 순위가 함께 보이는 겁니다.\n\n이게 데이터베이스입니다.',
+    note: '교실이 가장 뜨거워지는 구간. 시간을 아끼지 말 것.',
+  },
+  {
+    section: 'outro',
+    type: 'flow',
+    kicker: '오늘 배운 것 · 30초',
+    title: '이게 개발자가 하는 일 전부입니다',
+    lead: '프론트엔드를 만들고 → 깃허브에 push하고 → 배포하고 → DB에 저장했다',
+    active: 'all',
+    note: '원리 그림을 한 번 더 띄워도 좋다. "왼쪽 만들고, 아래줄로 공개하고, 오른쪽에 저장했습니다."',
+  },
+  {
+    section: 'outro',
+    type: 'message',
+    kicker: '마지막 한 마디',
+    title: '오늘 만든 건 게임이 아니라,\n"나도 만들 수 있다"는 경험입니다.',
+    sub: '집에서 이어가기 안내문을 받아가세요 — 오늘 프롬프트 + 가입부터 배포까지 절차 + 이미지 파일 넣는 법',
+  },
+  {
+    section: 'outro',
+    type: 'prompt',
+    kicker: '심화 · 먼저 끝낸 학생 / 다음 시간',
+    title: '급식표 피드백 앱',
+    label: 'DB가 꼭 필요한 앱 — 오늘 배운 것과 바로 연결',
+    text: `이번 달 급식 메뉴가 달력 형태로 보이는 앱을 만들어줘.
+날짜를 누르면 그날 메뉴가 뜨고, 별점(1~5)과 한 줄 평을 남길 수 있게 해줘.
+아래에는 이번 달 평균 별점이 높은 메뉴 TOP 5를 보여줘.`,
+    extra: ['심화: 친구들이 남긴 평에 좋아요 / 메뉴별 찬반 투표', '다른 소재: 게임 스테이지 2 · 학교 시설 안내 지도 · 반 밸런스게임 투표'],
+  },
+]
